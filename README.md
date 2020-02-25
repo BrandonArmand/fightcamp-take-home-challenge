@@ -1,52 +1,56 @@
 # FightCamp's Take Home Challenge 🥊
 
-Hey! Congratulations on making it to the next step in the interview process. We look forward to having you potentially join the FightCamp family!
-
-The FightCamp challenge is an opportunity for you to demonstrate your problem solving skills, your perspective on code maintenance, and your communication style.
-
-## Expectations
-
-We have created a component which contains a few bugs and can be severely improved.
-There are 4 challenges that we would like you to complete. We have also included 1 BONUS challenge if you feel up to the task.
-
-### Time Allotment
-We understand that your time is valuable, and in order to respect your time we have designed the challenge to take about 1 hour. We are always improving our process, so if you have any suggestions please let us know.
-
-### Project Submission
-Fork this repository.
-
-Solve the challenges.
-
-Create a `README` with the following items:
-
-* Description of the problem and how you solved it.
-* The reasoning behind your decisions.
-* Any other information you believe is necessary for us to know about the issue/solution.
-
-Try your best to keep a clean commit history so that we may best review your solutions.
-
-Please solve the 4 required challenges (and maybe the BONUS challenge) below. Once completed, email us a link to your forked GitHub repo.
-
-# The Exercises
-
 ## 1. Screen Scaling Issue [easy]
-  When you run the Vue application you will notice on the screen three package columns. When scaling the screen down the elements within the package are no longer aligned (see image below). Notice the alignment of the ImagePresenter, titles, headers, items, and the payment information (prices do not reflect our actual pricing). Use `CSS` to fix the scaling issue so that when the screen scales down the packages and package information remain aligned. Explain the problem and solution in your `README`.
+To fix the alignment of the data within the packages, I:
 
-  ![unaligned](./public/images/unaligned-packages.png)
+1. changed the flex-box on the pricing to be center aligned along with a small margin on the total to no merge with the "or" text.
+2. Added a `min-width` on the `packages-block` class to fix an issue with the center block shrinking more than the other two blocks.
+3. Added set heights on `.packages-block-header, .packages-block-info` classes to stop the blocks for individually growing inconsistantly. The heights that they are both set to represent a worst-case pixel amount for both classes' heights.
+
+Side note: I originally went with this design for solving the sizing on shrinkage, but ultimatly decided not to commit to the idea.
+<img width="908" alt="Screen Shot 2020-02-24 at 8 29 52 PM" src="https://user-images.githubusercontent.com/27185256/75228087-4d183680-5764-11ea-92d9-6b173ad5155c.png">
 
 ## 2. Mobile Package Centering [easy]
-If you scale the window down further (around 767px width), you will notice the single package is not centered with the title (see image below) of the page. Please use `CSS` to center the package.
+When the page is shrunk to a mobile size, the blocks do not get centered.
 
-  ![off-center](./public/images/off-center-package.png)
+To fix this, I added `align-items: center;` to the block container.
 
 ## 3. Included Items [easy]
-Fix the `itemIncluded` method so that is correctly applies the `packages-block-item-not-included` class.
-It should look like the screenshot below:
+The `itemIncluded` function did not work properly. There were 2 issues with it.
 
-![included-items](./public/images/included-items.png)
+1. `typeof item === "boolean"` is not correct. The data set is of type object (Array), so I changed the first bit to `typeof item === "object"`.
+2. `(item.included === "false")`, "false" is a string which will eq(true), thus true === false, which I changed to `(item.included === false)`.
 
 ## 4. Refactor [normal]
-  Refactor the `Packages.vue` code as you see fit to increase clarity and reusability. Explain your decisions in your `README`.
+The packages.vue file is already pretty cleaned up with one outlier, the dataset.
 
+So what I did is moved the data from `packages.vue` to `src/data/packageData.js` which I then reference with 
+```
+import packages from '../data/packageData'
+...
+data() {
+  return {
+    ...packages
+  }
+}
+```
 ## 5. BONUS [hard]
-  You might have noticed that the ImagePresenter is not correctly focusing on the clicked thumbnail images and making them the current image. This issue happens if you scroll down or resize the browser. Refer to the first and second screenshots for examples on how it should work/look. Without touching the `ImagePresenter.vue` code, fix the image selection issue and explain the problem.
+This was a tough one. The initial response was to check the lazyLoad package since the `<lazy-component>` wraps the `<ImagePresenter>` component, as well as the issue being connected to page events.
+
+So after some initial research, I came up with zero help. So my next step was to play around with the options used with the `VueLazyLoad` package.
+
+Setting observer to true allowed for the component to work after scroll; however, it then ONLY worked after scroll. Not on initial load.
+```
+Vue.use(VueLazyload, {
+  preLoad: 2,
+  lazyComponent: true,
+  observer: true,
+});
+```
+So I did some debugging on the the components create, and click methods, and interestinlgly they both seem to "work" even though no data visually updates. 
+
+This leads me to assume a few things.
+1. The data isn't actually updating.
+2. The data is constantly initiating causing the first thumbnail in the array to be infinitely selected.
+
+But since setting `observer: true` sorta fixed #2, I would assume that it isn't the case. I didn't want to spend too much time on this part (like I already have), so I will just leave it at that. I would love to know the solution to this part.
