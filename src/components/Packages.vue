@@ -84,7 +84,7 @@
 
 <script>
   import ImagePresenter from '@/components/ImagePresenter.vue';
-  import packages from './packageList'
+  import packages from '../data/packageData'
 
   export default {
     name: 'Packages',

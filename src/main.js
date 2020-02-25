@@ -8,8 +8,7 @@ Vue.config.productionTip = false
 Vue.use(VueLazyload, {
   preLoad: 2,
   lazyComponent: true,
-  observer: true,
-
+  observer: false,
 });
 
 console.log("What's up! Welcome to the FightCamp Take Home Challenge.")
