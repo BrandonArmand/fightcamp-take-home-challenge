@@ -50,7 +50,7 @@ Vue.use(VueLazyload, {
 So I did some debugging on the the components `create`, and `click` methods, and interestinlgly they both seem to "work" even though no data visually updates. 
 
 This leads me to assume a few things.
-1. The data isn't actually updating.
+1. The data isn't actually changing.
 2. The data is constantly initiating causing the first thumbnail in the array to be infinitely selected.
 
-But since setting `observer: true` sorta fixed #2, I would assume that it isn't the case. I didn't want to spend too much time on this part (like I already have), so I will just leave it at that. I would love to know the solution to this part.
+But since setting `observer: true` sorta fixed #2, I would assume that it isn't the case. The obvious "solution" would be to remove lazyLoad, but i'm sure we want to keep that for page performance. I didn't want to spend too much time on this part (like I already have), so I will just leave it at that. I would love to know the solution to this part.
