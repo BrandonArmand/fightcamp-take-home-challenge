@@ -516,6 +516,7 @@
     display: flex;
     flex-direction: column;
     max-width: 450px;
+    min-width: 150px;
 
     @media  (min-width: 768px) and (max-width: 1200px) {
       flex: 1;
@@ -523,6 +524,10 @@
 
     @media  (min-width: 1200px) {
       flex: 1;
+    }
+
+    &-info {
+      height: 75px;
     }
 
     &-title {
@@ -535,6 +540,7 @@
     &-header {
       margin: .5rem 0 !important;
       color: #d73c4b;
+      height: 35px;
     }
 
     &-popular-pill {
@@ -606,8 +612,9 @@
     }
 
     &-price-heading {
-      height: 22px;
+      //height: 22px;
       font-size: 14px;
+      text-align: center;
 
       @media (min-width: 768px) and (max-width: 1200px) {
         font-size: 16px;
@@ -633,6 +640,7 @@
       flex-direction: row;
       justify-content: center;
       margin-top: .5rem;
+      margin-right: 5px;
 
       .prefix {
         align-self: flex-start;
