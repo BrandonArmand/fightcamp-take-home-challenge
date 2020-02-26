@@ -25,12 +25,12 @@
             <p>{{ pkg.text }}</p>
           </div>
         </div>
-        <lazy-component class="packages-block-card-img">
+        <lazy-container class="packages-block-card-img">
           <ImagePresenter
             :id="pkg.id"
             :content="pkg"
             class="packages-block-presenter" />
-        </lazy-component>
+        </lazy-container>
         <div class="packages-block-items">
           <div class="packages-block-items-container">
             <div

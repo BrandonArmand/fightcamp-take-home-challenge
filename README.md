@@ -53,4 +53,11 @@ This leads me to assume a few things.
 1. The data isn't actually changing.
 2. The data is constantly initiating causing the first thumbnail in the array to be infinitely selected.
 
-But since setting `observer: true` sorta fixed #2, I would assume that it isn't the case. The obvious "solution" would be to remove lazyLoad, but i'm sure we want to keep that for page performance. I didn't want to spend too much time on this part (like I already have), so I will just leave it at that. I would love to know the solution to this part.
+But since setting `observer: true` sorta fixed #2, I would assume that it isn't the case.
+
+### Attempt 2
+I decided to come back for a second attempt and fixed it in 5 minutes.
+
+I went through the souce code for the vue-lazyload package, and found the `<lazy-container>` component, and decided to replace the `<lazy-component>` component with it.
+
+I spent maybe an hour on the BONUS section alone, gave up, and decided the next day to give it another shot and got it completed immediatly. Sometimes the solution is just a good nights sleep.
